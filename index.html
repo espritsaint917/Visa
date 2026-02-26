@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa | Portail Officiel</title>
+    <style>
+        :root {
+            --gold: #c5a059;
+            --navy: #002349;
+            --bg-light: #f8f9fc;
+            --text: #4a4a4a;
+            --gray-light: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text);
+            overflow-x: hidden;
+            padding-bottom: 60px;
+        }
+
+        /* --- HEADER & NAV --- */
+        nav {
+            background: white;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        .logo { font-size: 24px; font-weight: 800; color: var(--navy); letter-spacing: -1px; }
+        .logo span { color: var(--gold); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1500');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        /* --- BANDE DE TÉMOIGNAGES --- */
+        .footer-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--navy);
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 2000;
+            border-top: 3px solid var(--gold);
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 80s linear infinite;
+        }
+        .testimonial-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 60px;
+            font-size: 13px;
+        }
+        .testimonial-item img {
+            width: 35px; height: 35px; border-radius: 50%; margin-right: 12px; border: 2px solid var(--gold); object-fit: cover;
+        }
+        .stars { color: #ffcc00; margin-right: 8px; font-size: 14px; }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- NOTIFICATIONS --- */
+        #visa-notification {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(-150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 5px solid #4CAF50;
+        }
+        #visa-notification.show { transform: translateX(0); }
+        .notif-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+
+        /* --- STEPS --- */
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: -30px auto 40px;
+            max-width: 900px;
+            position: relative;
+            z-index: 10;
+        }
+        .step-item {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 13px;
+            font-weight: 600;
+            color: #999;
+        }
+        .step-item.active { color: var(--navy); border: 1px solid var(--gold); }
+        .step-num { background: var(--gray-light); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .step-item.active .step-num { background: var(--gold); }
+
+        /* --- GRID & CARDS --- */
+        .container { max-width: 1100px; margin: 0 auto 60px; padding: 0 20px; }
+        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; color: var(--navy); border-left: 4px solid var(--gold); padding-left: 15px; }
+        .visa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .visa-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; }
+        .visa-card:hover { transform: translateY(-5px); }
+        .visa-img { height: 150px; background-size: cover; background-position: center; }
+        .visa-info { padding: 15px; }
+        .visa-desc { font-size: 12px; color: #777; margin: 5px 0 10px; line-height: 1.3; }
+        .price-tag { text-align: right; font-weight: 700; color: var(--gold); font-size: 16px; border-top: 1px solid #f9f9f9; padding-top: 10px; }
+
+        /* --- FORM --- */
+        #application-page { display: none; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .form-section-head { grid-column: span 2; margin-top: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--bg-light); color: var(--navy); font-weight: bold; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 13px; font-weight: 600; color: #666; }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        input:focus { outline: none; border-color: var(--gold); }
+        .btn-submit { grid-column: span 2; background: var(--navy); color: white; border: none; padding: 18px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 20px; font-size: 16px; }
+        
+        #loader { display: none; text-align: center; padding: 50px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- PAYMENT PAGE --- */
+        #payment-page { display: none; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); text-align: center; }
+        .iban-card { background: #fdfaf4; border: 1px solid var(--gold); border-radius: 8px; padding: 20px; margin: 20px 0; text-align: left; }
+        .iban-card p { margin: 10px 0; font-family: monospace; font-size: 16px; color: var(--navy); }
+        .whatsapp-btn { background: #25D366; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; margin-top: 20px; }
+
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .btn-submit { grid-column: span 1; }
+            .steps-container { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">GLOBAL<span>VISA</span></div>
+</nav>
+
+<div class="hero">
+    <h1>Portail de Demande Officiel</h1>
+    <p>Système de traitement rapide et sécurisé</p>
+</div>
+
+<div class="steps-container">
+    <div class="step-item active" id="st-1"><div class="step-num">1</div> Destination</div>
+    <div class="step-item" id="st-2"><div class="step-num">2</div> Formulaire</div>
+    <div class="step-item" id="st-3"><div class="step-num">3</div> Paiement</div>
+</div>
+
+<div class="container">
+    <div id="selection-page">
+        <h2 class="section-title">Choisissez votre pays de destination</h2>
+        <div class="visa-grid">
+            <div class="visa-card" onclick="goToStep2('Belgique', '120')">
+                <div class="visa-img" style="background-image: url('https://images.unsplash.com/photo-1559113513-d5e09c78b9dd?w=500')"></div>
+                <div class="visa-info"><h3>Belgique</h3><p class="visa-desc">Visa Schengen court séjour pour tourisme ou visite familiale.</p><div class="price-tag">120,00 €</div></div>
+            </div>
+            <div class="visa-card" onclick="goToStep2('Italie', '120')">
+                <div class="visa-img" style="background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=500')"></div>
+                <div class="visa-info"><h3>Italie</h3><p class="visa-desc">Accès à l'espace Schengen pour découvertes culturelles et loisirs.</p><div class="price-tag">120,00 €</div></div>
+            </div>
+            <div class="visa-card" onclick="goToStep2('Suisse', '135')">
+                <div class="visa-img" style="background-image: url('https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=500')"></div>
+                <div class="visa-info"><h3>Suisse</h3><p class="visa-desc">Visa de transit ou séjour touristique dans la zone Helvétique.</p><div class="price-tag">135,00 €</div></div>
+            </div>
+            <div class="visa-card" onclick="goToStep2('Norvège', '125')">
+                <div class="visa-img" style="background-image: url('https://images.unsplash.com/photo-1520263115673-610416f52ab6?w=500')"></div>
+                <div class="visa-info"><h3>Norvège</h3><p class="visa-desc">Entrée simplifiée pour les pays nordiques et croisières.</p><div class="price-tag">125,00 €</div></div>
+            </div>
+            <div class="visa-card" onclick="goToStep2('Pays-Bas', '120')">
+                <div class="visa-img" style="background-image: url('https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?w=500')"></div>
+                <div class="visa-info"><h3>Pays-Bas</h3><p class="visa-desc">Traitement rapide pour les séjours de moins de 90 jours.</p><div class="price-tag">120,00 €</div></div>
+            </div>
+            <div class="visa-card" onclick="goToStep2('Russie', '95')">
+                <div class="visa-img" style="background-image: url('https://images.unsplash.com/photo-1513326738677-b964603b136d?w=500')"></div>
+                <div class="visa-info"><h3>Russie</h3><p class="visa-desc">Visa touristique électronique ou classique avec lettre d'invitation.</p><div class="price-tag">95,00 €</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="application-page">
+        <button onclick="showPage('selection-page')" style="background:none; border:none; color:var(--gold); cursor:pointer; margin-bottom:15px; font-weight:bold;">← Changer de pays</button>
+        <h2 id="visa-title" style="color:var(--navy); margin-top:0;">Demande de Visa</h2>
+        <form onsubmit="goToStep3(event)">
+            <div class="form-grid" id="form-fields"></div>
+            <button type="submit" class="btn-submit">Valider et passer au paiement (<span id="btn-price"></span>)</button>
+        </form>
+    </div>
+
+    <div id="payment-page">
+        <h2 style="color: var(--navy);">Instructions de Paiement</h2>
+        <div class="iban-card">
+            <strong>NOM DU BÉNÉFICIAIRE :</strong>
+            <p>Milena Tsvyatkova Kostova</p>
+            <strong>IBAN :</strong>
+            <p>MT73 CFTE28 00400 00000 00005 6883 77</p>
+            <strong>CODE BIC (SWIFT) :</strong>
+            <p>CFTEMTM1XXX</p>
+        </div>
+        <p style="font-weight: bold; color: #d9534f;">⚠️ IMPORTANT : Une fois le virement effectué, veuillez envoyer votre reçu de paiement pour confirmation immédiate.</p>
+        <a href="https://wa.me/359877880602?text=Bonjour,%20voici%20mon%20reçu%20de%20paiement%20pour%20ma%20demande%20de%20visa." target="_blank" class="whatsapp-btn">Envoyer le reçu par WhatsApp</a>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <p id="loader-text">Analyse de vos documents et sécurisation du portail...</p>
+    </div>
+</div>
+
+<div class="footer-ticker">
+    <div class="ticker-content" id="ticker-js">
+        <span class="testimonial-item"><img src="https://i.pravatar.cc/150?u=11"><span class="stars">⭐⭐⭐⭐⭐</span><b>Jean-Luc D. :</b> "Visa italien reçu en un temps record !"</span>
+        <span class="testimonial-item"><img src="https://i.pravatar.cc/150?u=12"><span class="stars">⭐⭐⭐⭐⭐</span><b>Marie-Eve L. :</b> "Procédure 100% en ligne, très rassurant."</span>
+        <span class="testimonial-item"><img src="https://i.pravatar.cc/150?u=13"><span class="stars">⭐⭐⭐⭐⭐</span><b>Hassan B. :</b> "WhatsApp très réactif."</span>
+    </div>
+</div>
+
+<div id="visa-notification">
+    <img src="" id="notif-img" class="notif-img">
+    <div class="notif-info">
+        <span id="notif-name" class="notif-name"></span>
+        <span id="notif-action" class="notif-action"></span>
+    </div>
+</div>
+
+<script>
+    // GESTION DE LA NAVIGATION (RETOUR ARRIERE)
+    window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.page) {
+            showPage(event.state.page, false);
+        } else {
+            showPage('selection-page', false);
+        }
+    });
+
+    function showPage(pageId, pushState = true) {
+        // Cacher toutes les pages
+        document.getElementById('selection-page').style.display = 'none';
+        document.getElementById('application-page').style.display = 'none';
+        document.getElementById('payment-page').style.display = 'none';
+        document.getElementById('loader').style.display = 'none';
+
+        // Afficher la page demandée
+        document.getElementById(pageId).style.display = 'block';
+
+        // Mettre à jour les étapes
+        document.getElementById('st-1').classList.remove('active');
+        document.getElementById('st-2').classList.remove('active');
+        document.getElementById('st-3').classList.remove('active');
+
+        if(pageId === 'selection-page') document.getElementById('st-1').classList.add('active');
+        if(pageId === 'application-page') document.getElementById('st-2').classList.add('active');
+        if(pageId === 'payment-page') document.getElementById('st-3').classList.add('active');
+
+        if (pushState) {
+            history.pushState({page: pageId}, "", "");
+        }
+        window.scrollTo(0, 0);
+    }
+
+    const ticker = document.getElementById('ticker-js');
+    ticker.innerHTML += ticker.innerHTML;
+
+    function goToStep2(name, price) {
+        document.getElementById('form-fields').innerHTML = `
+            <div class="form-section-head">1. Identité du Demandeur</div>
+            <div class="input-group"><label>Nom complet</label><input type="text" required placeholder="EX: JEAN DUPONT"></div>
+            <div class="input-group"><label>Genre</label><select required><option value="">Sélectionner</option><option>Homme</option><option>Femme</option></select></div>
+            <div class="input-group"><label>Date de naissance</label><input type="date" required></div>
+            <div class="input-group"><label>Nationalité</label><input type="text" required placeholder="Votre pays"></div>
+            <div class="input-group"><label>Email</label><input type="email" required placeholder="email@exemple.com"></div>
+            <div class="input-group"><label>Téléphone</label><input type="tel" required placeholder="+ (___) ________"></div>
+            <div class="form-section-head">2. Informations du Passeport</div>
+            <div class="input-group"><label>Numéro de passeport</label><input type="text" required placeholder="N° de document"></div>
+            <div class="input-group"><label>Date d'expiration</label><input type="date" required></div>
+            <div class="input-group" style="grid-column: span 2;">
+                <label>Photo du passeport (Document)</label>
+                <input type="file" required accept="image/*,.pdf" style="border: 2px dashed var(--gold); background: #fffdf9;">
+            </div>
+            <div class="form-section-head">3. Détails du Séjour</div>
+            <div class="input-group"><label>Motif</label><select required><option>Tourisme</option><option>Affaires</option></select></div>
+            <div class="input-group"><label>Date d'arrivée</label><input type="date" required></div>
+            <div class="input-group"><label>Durée (jours)</label><input type="number" required placeholder="Ex: 15"></div>
+            <div class="input-group"><label>Adresse de résidence</label><input type="text" required placeholder="Hôtel ou domicile"></div>
+        `;
+        document.getElementById('visa-title').innerText = "Demande de Visa : " + name;
+        document.getElementById('btn-price').innerText = price + ",00 €";
+        showPage('application-page');
+    }
+
+    function goToStep3(e) {
+        e.preventDefault();
+        document.getElementById('application-page').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+        setTimeout(() => {
+            showPage('payment-page');
+        }, 3000);
+    }
+
+    const demands = [
+        {n: "Marc A.", p: "https://i.pravatar.cc/150?u=1", a: "vient de payer son visa"},
+        {n: "Oumar S.", p: "https://i.pravatar.cc/150?u=9", a: "paiement confirmé par WhatsApp"}
+    ];
+    function showNotif() {
+        const item = demands[Math.floor(Math.random() * demands.length)];
+        if(document.getElementById('notif-img')) {
+            document.getElementById('notif-img').src = item.p;
+            document.getElementById('notif-name').innerText = item.n;
+            document.getElementById('notif-action').innerText = item.a;
+            const div = document.getElementById('visa-notification');
+            div.classList.add('show');
+            setTimeout(() => div.classList.remove('show'), 4000);
+        }
+    }
+    setInterval(showNotif, 12000);
+    
+    // Initialisation
+    history.replaceState({page: 'selection-page'}, "", "");
+</script>
+</body>
+          </html>
